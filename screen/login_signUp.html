@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SnoopEdu - Login/Signup</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+<body class="bg-gray-50 h-screen flex items-center justify-center">
+  <div class="w-full max-w-4xl">
+    <div class="relative w-full main-container overflow-hidden">
+      
+      <!-- Login Form -->
+      <div id="loginFormContainer" class="form-container absolute h-full snoop-green rounded-lg flex items-center justify-center right-0">
+        <form id="loginForm" class="form-wrapper bg-white rounded-lg shadow-sm">
+          <h2 class="text-xl font-medium mb-6">Welcome to <span class="snoop-text">SnoopEdu</span></h2>
+          
+          <div class="mb-4">
+            <input type="email" placeholder="Email" required class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500">
+          </div>
+          
+          <div class="mb-4 password-container">
+            <input type="password" id="loginPassword" placeholder="Password" required 
+                   class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500 pr-10">
+            <i class="toggle-password fas fa-eye" data-target="#loginPassword"></i>
+          </div>
+          
+          <div class="flex items-center justify-between mb-6">
+            <div class="flex items-center">
+              <input type="checkbox" id="remember" class="mr-1">
+              <label for="remember" class="text-xs text-gray-500">Remember me?</label>
+            </div>
+            <a href="#" class="text-xs snoop-text">Forgot password?</a>
+          </div>
+          
+          <button type="submit" class="w-full py-2 snoop-green text-white rounded-md font-medium hover:bg-teal-600 transition">Sign in</button>
+          
+          <div class="mt-4 text-center">
+            <p class="text-sm text-gray-500">Don't have an account? <a href="#" id="showSignup" class="snoop-text font-medium">Sign up</a></p>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Logo Section (Login) -->
+      <div id="loginLogoContainer" class="logo-container absolute h-full flex items-center justify-center left-0 bg-white rounded-lg">
+        <div class="text-center">
+          <div class="mx-auto mb-2">
+            <img src="image/snoopEdu_logo.png" alt="SnoopEdu Logo" class="logo-img">
+          </div>
+        </div>
+      </div>
+      
+      <!-- Signup Form -->
+      <div id="signupFormContainer" class="form-container absolute h-full snoop-green rounded-lg flex items-center justify-center left-0 transform -translate-x-full">
+        <form id="signupForm" class="form-wrapper bg-white rounded-lg shadow-sm">
+          <h2 class="text-xl font-medium mb-6">Create an account</h2>
+          
+          <div class="mb-4">
+            <input type="text" placeholder="Full Name" required class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500">
+          </div>
+          
+          <div class="mb-4">
+            <input type="email" placeholder="Email" required class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500">
+          </div>
+          
+          <div class="mb-4 password-container">
+            <input type="password" id="signupPassword" placeholder="Password" required 
+                   class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500 pr-10">
+            <i class="toggle-password fas fa-eye" data-target="#signupPassword"></i>
+          </div>
+          
+          <div class="mb-6 password-container">
+            <input type="password" id="confirmPassword" placeholder="Confirm Password" required 
+                   class="w-full p-2 px-3 border border-transparent rounded-md snoop-light focus:outline-none focus:ring-1 focus:ring-teal-500 pr-10">
+            <i class="toggle-password fas fa-eye" data-target="#confirmPassword"></i>
+          </div>
+          
+          <button type="submit" class="w-full py-2 snoop-green text-white rounded-md font-medium hover:bg-teal-600 transition">Sign up</button>
+          
+          <div class="mt-4 text-center">
+            <p class="text-sm text-gray-500">Already have an account? <a href="#" id="showLogin" class="snoop-text font-medium">Sign in</a></p>
+          </div>
+        </form>
+      </div>
+      
+      <!-- Logo Section (Signup) -->
+      <div id="signupLogoContainer" class="logo-container absolute h-full flex items-center justify-center right-0 bg-white rounded-lg transform translate-x-full">
+        <div class="text-center">
+          <div class="mx-auto mb-2">
+            <img src="image/snoopEdu_logo.png" alt="SnoopEdu Logo" class="logo-img">
+          </div>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+
+  <script>
+    $(document).ready(function() {
+      // Show signup form
+      $("#showSignup").click(function(e) {
+        e.preventDefault();
+        
+        // Animate the forms and logos
+        gsap.to("#loginFormContainer", { x: "100%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#signupFormContainer", { x: "0%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#loginLogoContainer", { x: "-100%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#signupLogoContainer", { x: "0%", duration: 0.8, ease: "power2.inOut" });
+      });
+      
+      // Show login form
+      $("#showLogin").click(function(e) {
+        e.preventDefault();
+        
+        // Animate the forms and logos back
+        gsap.to("#loginFormContainer", { x: "0%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#signupFormContainer", { x: "-100%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#loginLogoContainer", { x: "0%", duration: 0.8, ease: "power2.inOut" });
+        gsap.to("#signupLogoContainer", { x: "100%", duration: 0.8, ease: "power2.inOut" });
+      });
+      
+      // Toggle password visibility
+      $(".toggle-password").click(function() {
+        const target = $(this).data("target");
+        const input = $(target);
+        const type = input.attr("type") === "password" ? "text" : "password";
+        input.attr("type", type);
+        
+        // Toggle eye icon
+        if (type === "password") {
+          $(this).removeClass("fa-eye-slash").addClass("fa-eye");
+        } else {
+          $(this).removeClass("fa-eye").addClass("fa-eye-slash");
+        }
+      });
+      
+      // Login form submission
+      $("#loginForm").submit(function(e) {
+        e.preventDefault();
+        // Here you would typically validate credentials first
+        window.location.href = "home_page.html"; 
+      });
+      
+      // Signup form submission
+      $("#signupForm").submit(function(e) {
+        e.preventDefault();
+        // Here you would typically process the signup first
+        window.location.href = "home_page.html"; 
+      });
+    });
+  </script>
+</body>
+</html>
